@@ -11,15 +11,15 @@ module.exports = (Sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true, 
         },
-        crimes: {
-            type: DataTypes.ARRAY(DataTypes.STRING), // Assuming PostgreSQL
-            allowNull: true,
-        },
         status: {
             type: DataTypes.ENUM('at large', 'captured'),
             defaultValue: 'at large',
         }
     });
+
+    Criminal.associate = (models) => {
+        Criminal.hasMany(models.Crime, { foreignKey: 'criminalId', as: 'crimes' });
+    };
 
     return Criminal;
 };

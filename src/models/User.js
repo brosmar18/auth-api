@@ -65,7 +65,11 @@ module.exports = (Sequelize, DataTypes) => {
             console.error(e);
             throw e;
         }
-    }
+    };
+
+    User.associate = (models) => {
+        User.hasMany(models.Crime, { foreignKey: 'assignedTo', as: 'crimes' });
+    };
 
     return User;
 };
