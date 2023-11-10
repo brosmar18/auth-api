@@ -17,6 +17,10 @@ module.exports = (Sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        role: {
+            type: DataTypes.ENUM('user', 'writer', 'editor', 'admin'),
+            defaultValue: 'user',
+        },
         token: {
             type: DataTypes.VIRTUAL,
             get() {
@@ -25,6 +29,18 @@ module.exports = (Sequelize, DataTypes) => {
             set() {
                 return jwt.sign({ username: this.username }, SECRET, { expiresIn: 1000 * 60 * 60 *15});
             },
+        },
+        capabilities: {
+            type: DataTypes.VIRTUAL,
+            get() {
+                const acl = {
+                    user: ['read'],
+                    writer: ['read', 'create'],
+                    editor: ['read', 'create', 'update'],
+                    admin: ['read', 'create', 'update', 'delete'],
+                };
+                return acl[this.role];
+            }
         }
     }, {
         hooks: {
