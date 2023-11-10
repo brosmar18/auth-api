@@ -18,7 +18,7 @@ module.exports = (Sequelize, DataTypes) => {
     });
 
     Criminal.associate = (models) => {
-        Criminal.hasMany(models.Crime, { foreignKey: 'criminalId', as: 'crimes' });
+        Criminal.hasMany(models.crimeModel, { foreignKey: 'criminalId', as: 'crimes' });
     };
 
     return Criminal;

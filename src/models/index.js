@@ -45,5 +45,10 @@ db.userCollection = new Collection(db.userModel);
 db.crimeCollection = new Collection(db.crimeModel);
 db.criminalCollection = new Collection(db.criminalModel);
 
+console.log('User Model:', db.userModel);
+console.log('Crime Model:', db.crimeModel);
+console.log('Criminal Model:', db.criminalModel);
+
+
 
 module.exports = db;

@@ -19,8 +19,12 @@ module.exports = (Sequelize, DataTypes) => {
             defaultValue: 'open',
         },
         assignedTo: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: true, // This can be null if the case is not yet assigned
+            references: {
+                model: 'Users',
+                key: 'id',
+            },
         },
         criminalId: {
             type: DataTypes.INTEGER,
@@ -32,8 +36,8 @@ module.exports = (Sequelize, DataTypes) => {
     });
 
     Crime.associate = (models) => {
-        Crime.belongsTo(models.Criminal, { foreignKey: 'criminalId', as: 'suspect' });
-        Crime.belongsTo(models.User, { foreignKey: 'assignedTo', as: 'vigilante' }); 
+        Crime.belongsTo(models.criminalModel, { foreignKey: 'criminalId', as: 'suspect' });
+        Crime.belongsTo(models.userModel, { foreignKey: 'assignedTo', as: 'vigilante' }); 
     };
 
     return Crime;

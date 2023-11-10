@@ -1,14 +1,14 @@
 'use strict';
 
 const express = require('express');
-const { userModel } = require('../models');
+const db = require('../models');
 const bearerAuth = require('../middleware/auth/bearerAuth');
 
 const router = express.Router();
 
 router.get('/users', bearerAuth, async (req, res, next) => {
     try {
-        let users = await userModel.findAll({
+        let users = await db.userModel.findAll({
             // Exclude password from the results
             attributes: { exclude: ['password']},
         });
