@@ -26,6 +26,12 @@ app.get('/', (req, res, next) => {
     res.status(200).send("Hello World!");
 });
 
+// Route to test errorHandler
+app.get('/test-error', (req, res, next) => {
+    const err = new Error("Test Error for 500");
+    next(err);
+});
+
 app.use('*', notFound);
 app.use(errorHandler);
 
